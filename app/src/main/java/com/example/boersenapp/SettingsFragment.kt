@@ -1,0 +1,7 @@
+package com.example.boersenapp
+
+import androidx.fragment.app.Fragment
+
+class SettingsFragment : Fragment() {
+
+}
