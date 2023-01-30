@@ -1,53 +1,36 @@
 package com.example.boersenapp
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
+import com.example.boersenapp.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var bottomNavigationView: BottomNavigationView
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
-        bottomNavigationView = findViewById(R.id.nav_bar)
-        bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        // Set default fragment
-        val fragment = HomeFragment()
-        openFragment(fragment)
-    }
+        val navView: BottomNavigationView = binding.navBar
 
-    private val navigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
-        when (item.itemId) {
-            R.id.nav_home -> {
-                val fragment = HomeFragment()
-                openFragment(fragment)
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.nav_portfolio -> {
-                val fragment = PortfolioFragment()
-                openFragment(fragment)
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.nav_settings -> {
-                val fragment = SettingsFragment()
-                openFragment(fragment)
-                return@OnNavigationItemSelectedListener true
-            }
-        }
-        false
-    }
-
-    private fun openFragment(fragment: Fragment) {
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.nav_bar, fragment)
-        transaction.addToBackStack(null)
-        transaction.commit()
+        val navController = findNavController(R.id.nav_host_fragment_activity_main)
+        // Passing each menu ID as a set of Ids because each
+        // menu should be considered as top level destinations.
+        val appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.navigation_home, R.id.navigation_favoriten, R.id.navigation_settings
+            )
+        )
+        setupActionBarWithNavController(navController, appBarConfiguration)
+        navView.setupWithNavController(navController)
     }
 }
