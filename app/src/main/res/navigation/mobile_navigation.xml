@@ -14,12 +14,12 @@
     <fragment
         android:id="@+id/navigation_favoriten"
         android:name="com.example.boersenapp.ui.favoriten.FavoritenFragment"
-        android:label="Favoriten"
+        android:label="@string/title_favoriten"
         tools:layout="@layout/fragment_favoriten" />
 
     <fragment
         android:id="@+id/navigation_settings"
         android:name="com.example.boersenapp.ui.settings.SettingsFragment"
-        android:label="Settings"
+        android:label="@string/title_settings"
         tools:layout="@layout/fragment_settings" />
 </navigation>
