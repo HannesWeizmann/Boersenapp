@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-       getDataTickers()
+       //getDataTickers()
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
-
+/*
     private fun getDataTickers(){
 
         val tickerAPi = RetrofitHelper.getInstance().create(TickersAPI::class.java)
@@ -73,7 +73,7 @@ class MainActivity : AppCompatActivity() {
 
 
     }
-
+*/
 
 
 }
