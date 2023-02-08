@@ -15,13 +15,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.example.boersenapp.R
+import com.example.boersenapp.api.historical.HistoricalAPI
+import com.example.boersenapp.api.historical.dataclass.Historical
 import com.example.boersenapp.api.tickers.RetrofitHelper
 import com.example.boersenapp.api.tickers.TickersAPI
 import com.example.boersenapp.api.tickers.dataclass.Tickers
 import com.example.boersenapp.databinding.FragmentHomeBinding
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import retrofit2.*
+import retrofit2.converter.gson.GsonConverterFactory
+import java.time.LocalDate
+import java.util.Date
 
 class HomeFragment : Fragment() {
 
@@ -31,15 +36,21 @@ class HomeFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
 
-        getDataTickers()
+        getDataTickers("a1626f7c013a2fbc9d4431d2fb8b68b1", 20)
+        val date1 = LocalDate.parse("2023-01-30")
+        val date2 = LocalDate.parse("2023-02-05")
+        getDataHistorical("a1626f7c013a2fbc9d4431d2fb8b68b1", "AAPL", date1, date2)
 
         val homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
 
 
 /*
@@ -56,19 +67,16 @@ class HomeFragment : Fragment() {
     }
 
 
-    private fun getDataTickers(){
+    private fun getDataTickers(key:String, limit: Int) {
 
         val tickerAPi = RetrofitHelper.getInstance().create(TickersAPI::class.java)
-        val accesskey ="a1626f7c013a2fbc9d4431d2fb8b68b1"
-        val limit = 20
-        val call: Call<Tickers> = tickerAPi.getTickers(accesskey, limit)
+        val call: Call<Tickers> = tickerAPi.getTickers(key, limit)
         call.enqueue(object : Callback<Tickers?> {
 
             override fun onResponse(
                 call: Call<Tickers?>,
                 response: Response<Tickers?>
-            )
-            {
+            ) {
                 if (response.isSuccessful()) {
                     println("Success")
                     println(response.body()?.data?.javaClass?.name)
@@ -79,7 +87,7 @@ class HomeFragment : Fragment() {
                     val recyclerview: RecyclerView = binding.recyclerview
                     recyclerview.layoutManager = LinearLayoutManager(activity!!) as LayoutManager
                     val data = ArrayList<TickersItemsViewModel>()
-                    for (i in 0 until limit ){
+                    for (i in 0 until limit) {
                         response.body()?.data?.get(i)?.name?.let { TickersItemsViewModel(it) }
                             ?.let { data.add(it) }
                     }
@@ -99,4 +107,27 @@ class HomeFragment : Fragment() {
 
 
     }
+
+
+    private fun getDataHistorical(key:String, symbol: String, date_from:LocalDate, date_to:LocalDate){
+
+        val historicalAPI = RetrofitHelper.getInstance().create(HistoricalAPI::class.java)
+        val call : Call<Historical> = historicalAPI.getHistorical(key,symbol,date_from,date_to)
+        call.enqueue(object: Callback<Historical>{
+
+            override fun onResponse (
+                call: Call<Historical?>,
+                response: Response<Historical?>
+            ){
+                println("hoffentlich lese ich das gleich im Logcat")
+                println(response.body()?.toString())
+            }
+
+            override fun onFailure(call: Call<Historical>, t: Throwable) {
+                println("Error with Histroical api")
+            }
+        })
+
+    }
+
 }
