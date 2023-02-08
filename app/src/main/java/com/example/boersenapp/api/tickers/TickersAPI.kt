@@ -8,5 +8,5 @@ import retrofit2.http.Query
 
 interface TickersAPI {
     @GET("/v1/tickers")
-    fun getTickers(@Query("access_key") access_key: String, @Query("limit") limit: Int) : Call<Tickers>
+    fun getTickers(@Query("access_key") access_key: String, @Query("limit") limit: Int ): Call<Tickers>
 }
