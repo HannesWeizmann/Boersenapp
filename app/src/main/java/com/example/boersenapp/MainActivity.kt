@@ -15,7 +15,6 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.boersenapp.api.tickers.RetrofitHelper
 import com.example.boersenapp.api.tickers.TickersAPI
-import com.example.boersenapp.api.tickers.dataclass.Tickers
 import com.example.boersenapp.databinding.ActivityMainBinding
 import com.example.boersenapp.ui.home.CustomAdapter
 import com.example.boersenapp.ui.home.TickersItemsViewModel

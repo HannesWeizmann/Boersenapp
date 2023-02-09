@@ -21,7 +21,7 @@ import com.example.boersenapp.api.historical.HistoricalAPI
 import com.example.boersenapp.api.historical.dataclass.Historical
 import com.example.boersenapp.api.tickers.RetrofitHelper
 import com.example.boersenapp.api.tickers.TickersAPI
-import com.example.boersenapp.api.tickers.dataclass.Tickers
+import com.example.boersenapp.api.tickers.dataclass1.Tickers
 import com.example.boersenapp.databinding.FragmentHomeBinding
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -44,7 +44,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        getDataTickers("d3736ae785ca29411942b3774a34147a", 1000)
+        getDataTickers("tvrXanzn0M7kpFFyZLJKn4rTAG4rQJGv", 10)
         val date1 = LocalDate.parse("2023-01-30")
         val date2 = LocalDate.parse("2023-02-05")
         getDataHistorical("a1626f7c013a2fbc9d4431d2fb8b68b1", "AAPL", date1, date2)
@@ -71,8 +71,8 @@ class HomeFragment : Fragment() {
 
     private fun getDataTickers(key:String, limit: Int) {
 
-        val tickerAPi = RetrofitHelper.getInstance().create(TickersAPI::class.java)
-        val call: Call<Tickers> = tickerAPi.getTickers(key, limit)
+        val tickerapi = RetrofitHelper.getInstance().create(TickersAPI::class.java)
+        val call: Call<Tickers> = tickerapi.getTickers(true, limit, key)
         call.enqueue(object : Callback<Tickers?> {
 
             override fun onResponse(
@@ -81,16 +81,15 @@ class HomeFragment : Fragment() {
             ) {
                 if (response.isSuccessful()) {
                     println("Success")
-                    println(response.body()?.data?.javaClass?.name)
-                    println(response.body()?.data?.get(1)?.toString())
+                    println(response.body()?.results?.get(1)?.ticker)
+                    //println(response.body()?.data?.get(1)?.toString())
 
-                    //val recyclerview = findViewById<RecyclerView>(R.id.recyclerview)
 
                     val recyclerview: RecyclerView = binding.recyclerview
                     recyclerview.layoutManager = LinearLayoutManager(activity!!) as LayoutManager
                     val data = ArrayList<TickersItemsViewModel>()
                     for (i in 0 until limit) {
-                        response.body()?.data?.get(i)?.name?.let { TickersItemsViewModel(it) }
+                        response.body()?.results?.get(i)?.name?.let { TickersItemsViewModel(it) }
                             ?.let { data.add(it) }
                     }
                     val adapter = CustomAdapter(data)
@@ -105,15 +104,12 @@ class HomeFragment : Fragment() {
 
                 }
             }
-
             override fun onFailure(call: Call<Tickers?>, t: Throwable) {
                 println("Error with Tickers API")
 
             }
         }
         )
-
-
     }
 
 
