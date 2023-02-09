@@ -6,9 +6,20 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.boersenapp.DetailsActivity
 import com.example.boersenapp.R
 
 class CustomAdapter(private var mList: List<TickersItemsViewModel>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+
+    private lateinit var mListener: onItemClickListener
+
+    interface onItemClickListener{
+        fun onItemClick(position: Int)
+    }
+
+    fun setOnItemClickListener(clickListener: onItemClickListener){
+        mListener = clickListener
+    }
 
     // create new views
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -17,7 +28,7 @@ class CustomAdapter(private var mList: List<TickersItemsViewModel>) : RecyclerVi
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.home_card_design_view, parent, false)
 
-        return ViewHolder(view)
+        return ViewHolder(view, mListener)
     }
 
 
@@ -28,7 +39,6 @@ class CustomAdapter(private var mList: List<TickersItemsViewModel>) : RecyclerVi
 
         // sets the text to the textview from our itemHolder class
         holder.textView.text = ItemsViewModel.text
-
     }
 
     // return the number of the items in the list
@@ -37,9 +47,15 @@ class CustomAdapter(private var mList: List<TickersItemsViewModel>) : RecyclerVi
     }
 
     // Holds the views for adding it to image and text
-    class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
+    class ViewHolder(ItemView: View, clickListener: onItemClickListener) : RecyclerView.ViewHolder(ItemView) {
 
         val textView: TextView = itemView.findViewById(R.id.textView)
+
+        init {
+            itemView.setOnClickListener{
+                clickListener.onItemClick(adapterPosition)
+            }
+        }
     }
 
     // method for filtering our recyclerview items.

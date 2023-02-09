@@ -2,6 +2,7 @@ package com.example.boersenapp.ui.home
 
 import android.app.SearchManager
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import android.widget.ArrayAdapter
@@ -14,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
+import com.example.boersenapp.DetailsActivity
 import com.example.boersenapp.R
 import com.example.boersenapp.api.historical.HistoricalAPI
 import com.example.boersenapp.api.historical.dataclass.Historical
@@ -52,7 +54,6 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-
 /*
         val textView: TextView = binding.textHome
         homeViewModel.text.observe(viewLifecycleOwner) {
@@ -60,6 +61,7 @@ class HomeFragment : Fragment() {
         }*/
         return root
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -94,6 +96,16 @@ class HomeFragment : Fragment() {
                     val adapter = CustomAdapter(data)
 
                     recyclerview.adapter = adapter
+
+                    adapter.setOnItemClickListener(object : CustomAdapter.onItemClickListener {
+                        override fun onItemClick(position: Int){
+                            val intent = Intent(requireContext(), DetailsActivity::class.java)
+                            //hier wahrscheinlich noch problem bei Übergabe der Daten
+                            intent.putExtra("Aktie", data)
+                            //intent.putExtra("details", data)
+                            startActivity(intent)
+                        }
+                    })
 
                 }
             }
