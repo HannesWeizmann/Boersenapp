@@ -97,15 +97,11 @@ class HomeFragment : Fragment() {
 
                     recyclerview.adapter = adapter
 
-                    adapter.setOnItemClickListener(object : CustomAdapter.onItemClickListener {
-                        override fun onItemClick(position: Int){
-                            val intent = Intent(requireContext(), DetailsActivity::class.java)
-                            //hier wahrscheinlich noch problem bei Übergabe der Daten
-                            intent.putExtra("Aktie", data)
-                            //intent.putExtra("details", data)
-                            startActivity(intent)
-                        }
-                    })
+                    adapter.onItemClick = {
+                        val intent = Intent(requireContext(), DetailsActivity::class.java)
+                        intent.putExtra("Aktie", it)
+                        startActivity(intent)
+                    }
 
                 }
             }

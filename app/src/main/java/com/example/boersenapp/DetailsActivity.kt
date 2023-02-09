@@ -7,22 +7,17 @@ import com.example.boersenapp.ui.home.TickersItemsViewModel
 
 class DetailsActivity : AppCompatActivity() {
 
-    private lateinit var Aktienname : TextView
-    private lateinit var infos : TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_details)
 
-        initView()
-        setValuestoViews()
-    }
+        val ItemsViewModel = intent.getParcelableExtra<TickersItemsViewModel>("Aktie")
+        if(ItemsViewModel != null){
+            val textView : TextView = findViewById(R.id.Aktienname)
 
-    private fun initView(){}
+            textView.text = ItemsViewModel.text
+        }
 
-    private fun setValuestoViews()
-    {
-        //Aktienname.text = intent.getStringExtra("Aktie")
-        //infos.text = intent.getStringExtra("")
     }
 }
