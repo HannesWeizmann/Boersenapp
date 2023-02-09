@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.boersenapp.R
 
-class CustomAdapter(private val mList: List<TickersItemsViewModel>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+class CustomAdapter(private var mList: List<TickersItemsViewModel>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
     // create new views
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -19,6 +19,7 @@ class CustomAdapter(private val mList: List<TickersItemsViewModel>) : RecyclerVi
 
         return ViewHolder(view)
     }
+
 
     // binds the list items to a view
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -39,6 +40,16 @@ class CustomAdapter(private val mList: List<TickersItemsViewModel>) : RecyclerVi
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
 
         val textView: TextView = itemView.findViewById(R.id.textView)
+    }
+
+    // method for filtering our recyclerview items.
+    fun filterList(filterlist: List<TickersItemsViewModel>) {
+        // below line is to add our filtered
+        // list in our course array list.
+        mList = filterlist
+        // below line is to notify our adapter
+        // as change in recycler view data.
+        notifyDataSetChanged()
     }
 
 }

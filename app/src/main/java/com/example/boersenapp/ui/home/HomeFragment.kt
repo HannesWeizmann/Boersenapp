@@ -42,7 +42,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        getDataTickers("a1626f7c013a2fbc9d4431d2fb8b68b1", 20)
+        getDataTickers("a1626f7c013a2fbc9d4431d2fb8b68b1", 1000)
         val date1 = LocalDate.parse("2023-01-30")
         val date2 = LocalDate.parse("2023-02-05")
         getDataHistorical("a1626f7c013a2fbc9d4431d2fb8b68b1", "AAPL", date1, date2)
@@ -119,15 +119,16 @@ class HomeFragment : Fragment() {
                 call: Call<Historical?>,
                 response: Response<Historical?>
             ){
-                println("hoffentlich lese ich das gleich im Logcat")
+                println("hoffentlich lese ich das gleiche im Logcat")
                 println(response.body()?.toString())
             }
 
             override fun onFailure(call: Call<Historical>, t: Throwable) {
-                println("Error with Histroical api")
+                println("Error with Historical api")
             }
         })
 
     }
+
 
 }

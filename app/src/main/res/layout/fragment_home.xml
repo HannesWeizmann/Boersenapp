@@ -6,22 +6,14 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <SearchView
-        android:id="@+id/search_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/searchview_background"
-        android:iconifiedByDefault="false"
-        android:queryBackground="@android:color/transparent"
-        android:queryHint="Enter Sock Name">
-
-    </SearchView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:itemCount="5"
+        android:scrollbars="vertical"
         tools:listitem="@layout/home_card_design_view" />
+
 
 </LinearLayout>
