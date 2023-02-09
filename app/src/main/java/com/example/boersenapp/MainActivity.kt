@@ -95,7 +95,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun filter(text: String) {
         // creating a new array list to filter our data.
-        val filteredlist: List<TickersItemsViewModel> = ArrayList()
+        val filteredlist: ArrayList<TickersItemsViewModel> = ArrayList()
 
         // running a for loop to compare elements.
         for (item in mList) {
@@ -103,10 +103,7 @@ class MainActivity : AppCompatActivity() {
             if (item.text.toLowerCase().contains(text.toLowerCase())) {
                 // if the item is matched we are
                 // adding it to our filtered list.
-
-
-                //unerklärlicher fehler
-                //filteredlist.add(item)
+                filteredlist.add(item)
             }
         }
         if (filteredlist.isEmpty()) {
