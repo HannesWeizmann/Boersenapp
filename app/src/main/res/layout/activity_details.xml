@@ -16,14 +16,70 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Aktie" />
 
-    <TextView
-        android:id="@+id/infos"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <EditText
+        android:id="@+id/preis"
+        android:layout_width="116dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="60dp"
+        android:ems="10"
+        android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Aktienname" />
+
+    <TextView
+        android:id="@+id/Beschreibung1"
+        style="@style/Beschreibungen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="72dp"
+        android:text="Preis"
+        app:layout_constraintEnd_toStartOf="@+id/preis"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Aktienname" />
+
+    <TextView
+        android:id="@+id/Beschreibung2"
+        style="@style/Beschreibungen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="76dp"
+        android:layout_marginTop="36dp"
+        android:text="Exchange"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Beschreibung1" />
+
+    <TextView
+        android:id="@+id/exchange"
+        android:layout_width="75dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="116dp"
+        android:layout_marginTop="24dp"
+        android:text="TextView"
+        app:layout_constraintStart_toEndOf="@+id/Beschreibung2"
+        app:layout_constraintTop_toBottomOf="@+id/preis" />
+
+    <TextView
+        android:id="@+id/Beschreibung3"
+        style="@style/Beschreibungen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginBottom="20dp"
+        android:text="News"
+        app:layout_constraintBottom_toTopOf="@+id/news"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/news"
+        android:layout_width="332dp"
+        android:layout_height="192dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

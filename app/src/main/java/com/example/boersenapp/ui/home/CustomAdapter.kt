@@ -42,7 +42,7 @@ class CustomAdapter(private var mList: List<TickersItemsViewModel>) : RecyclerVi
         return mList.size
     }
 
-    // Holds the views for adding it to image and text
+    // Holds the views for adding it to text
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
 
         val textView: TextView = itemView.findViewById(R.id.textView)
