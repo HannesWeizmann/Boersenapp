@@ -61,6 +61,19 @@
         app:layout_constraintStart_toEndOf="@+id/Beschreibung2"
         app:layout_constraintTop_toBottomOf="@+id/preis" />
 
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/lineChart"
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        android:padding="9dp"
+        app:layout_constraintBottom_toTopOf="@+id/news"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Aktienname"
+        app:layout_constraintVertical_bias="0.652" />
+
     <TextView
         android:id="@+id/Beschreibung3"
         style="@style/Beschreibungen"
