@@ -45,8 +45,8 @@ class HomeFragment : Fragment() {
     ): View {
 
         getDataTickers("tvrXanzn0M7kpFFyZLJKn4rTAG4rQJGv", 10)
-        val date1 = LocalDate.parse("2023-01-30")
-        val date2 = LocalDate.parse("2023-02-05")
+        val date1 = LocalDate.parse("2023-02-06")
+        val date2 = LocalDate.parse("2023-02-10")
         getDataHistorical("a1626f7c013a2fbc9d4431d2fb8b68b1", "AAPL", date1, date2)
 
         val homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
@@ -71,7 +71,7 @@ class HomeFragment : Fragment() {
 
     private fun getDataTickers(key:String, limit: Int) {
 
-        val tickerapi = RetrofitHelper.getInstance().create(TickersAPI::class.java)
+        val tickerapi = RetrofitHelper.getInstance("https://api.polygon.io").create(TickersAPI::class.java)
         val call: Call<Tickers> = tickerapi.getTickers(true, limit, key)
         call.enqueue(object : Callback<Tickers?> {
 
@@ -82,8 +82,6 @@ class HomeFragment : Fragment() {
                 if (response.isSuccessful()) {
                     println("Success")
                     println(response.body()?.results?.get(1)?.ticker)
-                    //println(response.body()?.data?.get(1)?.toString())
-
 
                     val recyclerview: RecyclerView = binding.recyclerview
                     recyclerview.layoutManager = LinearLayoutManager(activity!!) as LayoutManager
@@ -115,7 +113,8 @@ class HomeFragment : Fragment() {
 
     private fun getDataHistorical(key:String, symbol: String, date_from:LocalDate, date_to:LocalDate){
 
-        val historicalAPI = RetrofitHelper.getInstance().create(HistoricalAPI::class.java)
+        val url = "APPL/range/1/day/2023-02-06/2023-02-10"
+        val historicalAPI = RetrofitHelper.getInstance("http://api.marketstack.com").create(HistoricalAPI::class.java)
         val call : Call<Historical> = historicalAPI.getHistorical(key,symbol,date_from,date_to)
         call.enqueue(object: Callback<Historical>{
 

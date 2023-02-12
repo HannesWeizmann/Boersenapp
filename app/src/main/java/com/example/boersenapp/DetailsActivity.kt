@@ -15,8 +15,10 @@ class DetailsActivity : AppCompatActivity() {
         val ItemsViewModel = intent.getParcelableExtra<TickersItemsViewModel>("Aktie")
         if(ItemsViewModel != null){
             val textView : TextView = findViewById(R.id.Aktienname)
+            val exchange : TextView = findViewById(R.id.exchange)
 
             textView.text = ItemsViewModel.text
+            //exchange.text = ItemsViewModel.
         }
 
     }
