@@ -67,12 +67,12 @@
         android:layout_width="300dp"
         android:layout_height="200dp"
         android:padding="9dp"
-        app:layout_constraintBottom_toTopOf="@+id/news"
+        app:layout_constraintBottom_toTopOf="@+id/Beschreibung3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Aktienname"
-        app:layout_constraintVertical_bias="0.652" />
+        app:layout_constraintTop_toBottomOf="@+id/Beschreibung2"
+        app:layout_constraintVertical_bias="0.788" />
 
     <TextView
         android:id="@+id/Beschreibung3"
@@ -87,8 +87,8 @@
 
     <TextView
         android:id="@+id/news"
-        android:layout_width="332dp"
-        android:layout_height="192dp"
+        android:layout_width="334dp"
+        android:layout_height="158dp"
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
