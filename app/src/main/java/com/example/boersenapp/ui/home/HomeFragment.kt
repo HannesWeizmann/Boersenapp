@@ -109,29 +109,4 @@ class HomeFragment : Fragment() {
         }
         )
     }
-
-
-    private fun getDataHistorical(key:String, symbol: String, date_from:LocalDate, date_to:LocalDate){
-
-        val url = "APPL/range/1/day/2023-02-06/2023-02-10"
-        val historicalAPI = RetrofitHelper.getInstance("http://api.marketstack.com").create(HistoricalAPI::class.java)
-        val call : Call<Historical> = historicalAPI.getHistorical(key,symbol,date_from,date_to)
-        call.enqueue(object: Callback<Historical>{
-
-            override fun onResponse (
-                call: Call<Historical?>,
-                response: Response<Historical?>
-            ){
-                println("hoffentlich lese ich das gleiche im Logcat")
-                println(response.body()?.toString())
-            }
-
-            override fun onFailure(call: Call<Historical>, t: Throwable) {
-                println("Error with Historical api")
-            }
-        })
-
-    }
-
-
 }

@@ -32,7 +32,9 @@ class DetailsActivity : AppCompatActivity() {
         }
         val date1 = LocalDate.parse("2023-02-06")
         val date2 = LocalDate.parse("2023-02-10")
-        getDataHistorical("5d98d031772f2a4eefec231a0eb1d75f", "AAPL", date1, date2)
+        if (ItemsViewModel != null) {
+            getDataHistorical("5d98d031772f2a4eefec231a0eb1d75f", ItemsViewModel.text, date1, date2)
+        }
 
     }
 
