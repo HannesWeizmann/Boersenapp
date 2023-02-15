@@ -1,5 +1,6 @@
 package com.example.boersenapp
 
+import android.content.pm.ActivityInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
@@ -22,6 +23,9 @@ class DetailsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_details)
+
+        // Drehung des Bildschirms
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR
 
         val ItemsViewModel = intent.getParcelableExtra<TickersItemsViewModel>("Aktie")
         if(ItemsViewModel != null){

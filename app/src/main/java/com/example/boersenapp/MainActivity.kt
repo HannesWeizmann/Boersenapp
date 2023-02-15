@@ -1,6 +1,7 @@
 package com.example.boersenapp
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -32,6 +33,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // Drehung des Bildschirms
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR
+
 
         // on below line we are initializing our list
         mList = ArrayList()
@@ -43,8 +47,6 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        customAdapter.notifyDataSetChanged()
 
         val navView: BottomNavigationView = binding.navView
 
@@ -58,6 +60,8 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        customAdapter.notifyDataSetChanged()
     }
 
     // calling on create option menu

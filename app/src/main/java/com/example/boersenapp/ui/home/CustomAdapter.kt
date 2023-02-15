@@ -37,6 +37,7 @@ class CustomAdapter(private var mList: List<TickersItemsViewModel>) : RecyclerVi
         }
     }
 
+
     // return the number of the items in the list
     override fun getItemCount(): Int {
         return mList.size
