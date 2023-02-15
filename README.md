@@ -8,6 +8,7 @@ Hannes Weizmann:
 - Detailansicht: Design und Funktionalität
 - AppIcon
 - App dreht sich mit Bildschirm
+- Infomessage bei fehlender Internetverbindung
 - Neues Feature: SearchView
 
 Philipp Cao:
