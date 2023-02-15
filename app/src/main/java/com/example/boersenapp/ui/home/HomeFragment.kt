@@ -1,34 +1,30 @@
 package com.example.boersenapp.ui.home
 
-import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
 import android.os.Bundle
-import android.view.*
-import android.widget.ArrayAdapter
-import android.widget.SearchView
-import android.widget.SearchView.OnQueryTextListener
-import android.widget.TextView
-import androidx.databinding.adapters.SearchViewBindingAdapter.OnQueryTextChange
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.example.boersenapp.DetailsActivity
-import com.example.boersenapp.R
-import com.example.boersenapp.api.historical.HistoricalAPI
-import com.example.boersenapp.api.historical.dataclass.Historical
 import com.example.boersenapp.api.tickers.RetrofitHelper
 import com.example.boersenapp.api.tickers.TickersAPI
 import com.example.boersenapp.api.tickers.dataclass1.Tickers
 import com.example.boersenapp.databinding.FragmentHomeBinding
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import retrofit2.*
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.time.LocalDate
-import java.util.Date
+
 
 class HomeFragment : Fragment() {
 
