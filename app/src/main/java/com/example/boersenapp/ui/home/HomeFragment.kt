@@ -25,6 +25,8 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.time.LocalDate
 
+var data = ArrayList<TickersItemsViewModel>()
+val adapter = CustomAdapter(data)
 
 class HomeFragment : Fragment() {
 
@@ -45,16 +47,9 @@ class HomeFragment : Fragment() {
         val date2 = LocalDate.parse("2023-02-10")
         //getDataHistorical("a1626f7c013a2fbc9d4431d2fb8b68b1", "AAPL", date1, date2)
 
-        val homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-/*
-        val textView: TextView = binding.textHome
-        homeViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }*/
         return root
     }
 
@@ -81,12 +76,10 @@ class HomeFragment : Fragment() {
 
                     val recyclerview: RecyclerView = binding.recyclerview
                     recyclerview.layoutManager = LinearLayoutManager(activity!!) as LayoutManager
-                    val data = ArrayList<TickersItemsViewModel>()
                     for (i in 0 until limit) {
                         response.body()?.results?.get(i)?.ticker?.let { TickersItemsViewModel(it) }
                             ?.let { data.add(it) }
                     }
-                    val adapter = CustomAdapter(data)
 
                     recyclerview.adapter = adapter
 

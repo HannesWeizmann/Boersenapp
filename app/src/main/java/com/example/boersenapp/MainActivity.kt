@@ -23,16 +23,18 @@ import com.example.boersenapp.api.tickers.TickersAPI
 import com.example.boersenapp.databinding.ActivityMainBinding
 import com.example.boersenapp.ui.home.CustomAdapter
 import com.example.boersenapp.ui.home.TickersItemsViewModel
+import com.example.boersenapp.ui.home.adapter
+import com.example.boersenapp.ui.home.data
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    lateinit var customAdapter: CustomAdapter
-    lateinit var mList: List<TickersItemsViewModel>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,11 +43,6 @@ class MainActivity : AppCompatActivity() {
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR
 
 
-        // on below line we are initializing our list
-        mList = ArrayList()
-
-        // on below line we are initializing our adapter
-        customAdapter = CustomAdapter(mList)
 
         //Check for Internet Connection
         if (checkForInternet(this)) {
@@ -70,7 +67,6 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        customAdapter.notifyDataSetChanged()
     }
 
     // calling on create option menu
@@ -110,9 +106,9 @@ class MainActivity : AppCompatActivity() {
         val filteredlist: ArrayList<TickersItemsViewModel> = ArrayList()
 
         // running a for loop to compare elements.
-        for (item in mList) {
+        for (item in data) {
             // checking if the entered string matched with any item of our recycler view.
-            if (item.text.toLowerCase().contains(text.toLowerCase())) {
+            if (item.text.lowercase(Locale.getDefault()).contains(text.lowercase(Locale.getDefault()))) {
                 // if the item is matched we are
                 // adding it to our filtered list.
                 filteredlist.add(item)
@@ -125,7 +121,7 @@ class MainActivity : AppCompatActivity() {
         } else {
             // at last we are passing that filtered
             // list to our adapter class.
-            customAdapter.filterList(filteredlist)
+            adapter.filterList(filteredlist)
         }
     }
 
@@ -167,4 +163,5 @@ class MainActivity : AppCompatActivity() {
             return networkInfo.isConnected
         }
     }
+
 }
