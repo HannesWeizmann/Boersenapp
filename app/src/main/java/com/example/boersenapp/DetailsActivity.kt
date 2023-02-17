@@ -12,6 +12,7 @@ import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import org.w3c.dom.Text
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -26,6 +27,8 @@ class DetailsActivity : AppCompatActivity() {
 
         // Drehung des Bildschirms
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR
+
+
 
         val ItemsViewModel = intent.getParcelableExtra<TickersItemsViewModel>("Aktie")
         if(ItemsViewModel != null){
@@ -58,14 +61,10 @@ class DetailsActivity : AppCompatActivity() {
                 val lenght = response.body()?.data?.size!! -1
                 for(i in lenght downTo 0){
                     entries.add(Entry(i.toFloat(), response.body()?.data!![i].close.toFloat()))
-                    println(response.body()?.data!![i].date)
                 }
-                /*
-                for(i in 0 until response.body()?.data?.size!!){
-                    entries.add(Entry(i.toFloat(), response.body()?.data!![i].close.toFloat()))
-                    println(response.body()?.data!![i].date)
-                }*/
 
+                val preis: TextView = findViewById(R.id.preis)
+                preis.text = response.body()?.data!![0].close.toString()
 
                 val lineChart: LineChart = findViewById(R.id.lineChart)
 
