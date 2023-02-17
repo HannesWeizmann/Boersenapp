@@ -55,9 +55,16 @@ class DetailsActivity : AppCompatActivity() {
             ){
 
                 val entries = ArrayList<Entry>()
+                val lenght = response.body()?.data?.size!! -1
+                for(i in lenght downTo 0){
+                    entries.add(Entry(i.toFloat(), response.body()?.data!![i].close.toFloat()))
+                    println(response.body()?.data!![i].date)
+                }
+                /*
                 for(i in 0 until response.body()?.data?.size!!){
                     entries.add(Entry(i.toFloat(), response.body()?.data!![i].close.toFloat()))
-                }
+                    println(response.body()?.data!![i].date)
+                }*/
 
 
                 val lineChart: LineChart = findViewById(R.id.lineChart)

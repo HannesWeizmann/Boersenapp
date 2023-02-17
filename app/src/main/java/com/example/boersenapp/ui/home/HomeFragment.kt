@@ -42,7 +42,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        getDataTickers("tvrXanzn0M7kpFFyZLJKn4rTAG4rQJGv", 10)
+        getDataTickers("tvrXanzn0M7kpFFyZLJKn4rTAG4rQJGv", 100)
         val date1 = LocalDate.parse("2023-02-06")
         val date2 = LocalDate.parse("2023-02-10")
         //getDataHistorical("a1626f7c013a2fbc9d4431d2fb8b68b1", "AAPL", date1, date2)
