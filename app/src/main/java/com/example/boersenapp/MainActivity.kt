@@ -108,7 +108,7 @@ class MainActivity : AppCompatActivity() {
         // running a for loop to compare elements.
         for (item in data) {
             // checking if the entered string matched with any item of our recycler view.
-            if (item.text.lowercase(Locale.getDefault()).contains(text.lowercase(Locale.getDefault()))) {
+            if (item.ticker.lowercase(Locale.getDefault()).contains(text.lowercase(Locale.getDefault()))) {
                 // if the item is matched we are
                 // adding it to our filtered list.
                 filteredlist.add(item)

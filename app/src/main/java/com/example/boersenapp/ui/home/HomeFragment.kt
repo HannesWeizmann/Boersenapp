@@ -77,8 +77,13 @@ class HomeFragment : Fragment() {
                     val recyclerview: RecyclerView = binding.recyclerview
                     recyclerview.layoutManager = LinearLayoutManager(activity!!) as LayoutManager
                     for (i in 0 until limit) {
-                        response.body()?.results?.get(i)?.ticker?.let { TickersItemsViewModel(it) }
-                            ?.let { data.add(it) }
+                        val name = response.body()?.results?.get(i)?.name
+                        val ticker = response.body()?.results?.get(i)?.ticker
+                        if(name != null && ticker != null){
+                            val item = TickersItemsViewModel(ticker, name)
+                            data.add(item)
+                        }
+
                     }
 
                     recyclerview.adapter = adapter

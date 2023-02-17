@@ -31,13 +31,12 @@ class DetailsActivity : AppCompatActivity() {
         if(ItemsViewModel != null){
             val textView : TextView = findViewById(R.id.Aktienname)
             val exchange : TextView = findViewById(R.id.exchange)
-
-            textView.text = ItemsViewModel.text
+            textView.text = ItemsViewModel.ticker
         }
         val date1 = LocalDate.parse("2023-02-06")
         val date2 = LocalDate.parse("2023-02-10")
         if (ItemsViewModel != null) {
-            getDataHistorical("5d98d031772f2a4eefec231a0eb1d75f", ItemsViewModel.text, date1, date2)
+            getDataHistorical("5d98d031772f2a4eefec231a0eb1d75f", ItemsViewModel.ticker, date1, date2)
         }
 
     }
@@ -54,9 +53,6 @@ class DetailsActivity : AppCompatActivity() {
                 call: Call<Historical?>,
                 response: Response<Historical?>
             ){
-                println("hoffentlich lese ich das gleiche im Logcat")
-                println(response.body()?.data?.size)
-
 
                 val entries = ArrayList<Entry>()
                 for(i in 0 until response.body()?.data?.size!!){

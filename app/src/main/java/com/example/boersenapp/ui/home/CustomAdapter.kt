@@ -30,7 +30,8 @@ class CustomAdapter(private var mList: List<TickersItemsViewModel>) : RecyclerVi
         val ItemsViewModel = mList[position]
 
         // sets the text to the textview from our itemHolder class
-        holder.textView.text = ItemsViewModel.text
+        holder.textView.text = ItemsViewModel.name
+
 
         holder.itemView.setOnClickListener{
             onItemClick?.invoke(ItemsViewModel)
