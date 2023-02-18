@@ -12,7 +12,6 @@ import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
-import org.w3c.dom.Text
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -36,6 +35,7 @@ class DetailsActivity : AppCompatActivity() {
             val exchange : TextView = findViewById(R.id.exchange)
             textView.text = ItemsViewModel.ticker
         }
+
         val date1 = LocalDate.parse("2023-02-06")
         val date2 = LocalDate.parse("2023-02-10")
         val key_marketstack = resources.getString(R.string.key_marketstack)
@@ -60,9 +60,12 @@ class DetailsActivity : AppCompatActivity() {
                 println("response")
                 println(response.body())
                 val entries = ArrayList<Entry>()
-                val lenght = response.body()?.data?.size!! -1
-                for(i in lenght downTo 0){
-                    entries.add(Entry(i.toFloat(), response.body()?.data!![i].close.toFloat()))
+                val length = response.body()?.data?.size!! -1
+
+
+                for(i in length downTo 0){
+                    val index = length - i
+                    entries.add(Entry(index.toFloat(), response.body()?.data!![i].close.toFloat()))
                 }
 
                 val preis: TextView = findViewById(R.id.preis)
@@ -70,7 +73,7 @@ class DetailsActivity : AppCompatActivity() {
 
                 val lineChart: LineChart = findViewById(R.id.lineChart)
 
-                val vl =LineDataSet(entries, "My Type")
+                val vl = LineDataSet(entries, "My Type")
                 vl.setDrawValues(false)
                 vl.setDrawFilled(true)
                 vl.lineWidth = 3f
