@@ -3,6 +3,10 @@ package com.example.boersenapp
 import android.content.pm.ActivityInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import android.widget.TextView
 import com.example.boersenapp.api.historical.HistoricalAPI
 import com.example.boersenapp.api.historical.dataclass.Historical
@@ -16,6 +20,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.time.LocalDate
+import java.time.Period
 
 class DetailsActivity : AppCompatActivity() {
 
@@ -28,20 +33,58 @@ class DetailsActivity : AppCompatActivity() {
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR
 
 
-
         val ItemsViewModel = intent.getParcelableExtra<TickersItemsViewModel>("Aktie")
+        val key_marketstack = resources.getString(R.string.key_marketstack)
         if(ItemsViewModel != null){
             val textView : TextView = findViewById(R.id.Aktienname)
             val exchange : TextView = findViewById(R.id.exchange)
             textView.text = ItemsViewModel.name
         }
 
+        val today = LocalDate.now()
+        val week = Period.of(0,0,7)
+        val moth  = Period.of(0,1,0)
+        val year = Period.of(1,0,0)
+        var dayinpast  = today.minus(week)
+
+        val date_ranges = resources.getStringArray(R.array.date_ranges)
+        val spinner: Spinner  = findViewById(R.id.spinner)
+        if(spinner != null){
+            val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, date_ranges)
+            spinner.adapter = adapter
+
+            spinner.onItemSelectedListener = object :
+                AdapterView.OnItemSelectedListener{
+                override fun onItemSelected(p0: AdapterView<*>?, parent: View?, position: Int, id: Long) {
+                    println(date_ranges[position])
+                    if(position ==0){
+                        dayinpast  =today.minus(week)
+                    }
+                    else if (position == 1){
+                        dayinpast = today.minus(moth)
+                    }
+                    else{
+                        dayinpast  = today.minus(year)
+                    }
+                    if(ItemsViewModel != null){
+                        getDataHistorical(key_marketstack, ItemsViewModel.ticker, dayinpast, today)
+                    }
+                }
+                override fun onNothingSelected(p0: AdapterView<*>?) {
+                    TODO("Not yet implemented")
+                }
+                }
+        }
+
+        println(dayinpast)
+        /*
         val date1 = LocalDate.parse("2023-02-06")
         val date2 = LocalDate.parse("2023-02-10")
         val key_marketstack = resources.getString(R.string.key_marketstack)
         if (ItemsViewModel != null) {
-            getDataHistorical(key_marketstack, ItemsViewModel.ticker, date1, date2)
-        }
+            //getDataHistorical(key_marketstack, ItemsViewModel.ticker, date1, date2)
+            getDataHistorical(key_marketstack, ItemsViewModel.ticker, dayinpast, today)
+        }*/
 
     }
 

@@ -2,12 +2,12 @@
     <string name="app_name">Boersenapp</string>
     <string name="title_home">Home</string>
     <string name="title_favoriten">Favoriten</string>
-    <string name="key_marketstack">5d98d031772f2a4eefec231a0eb1d75f</string>
+    <string name="key_marketstack">289c882bfff08e2f04893c6543fd3ed2</string>
     <string name="baseurl_marketstack">http://api.marketstack.com</string>
     <string name="key_polygon">tvrXanzn0M7kpFFyZLJKn4rTAG4rQJGv</string>
     <string name="baseurl_polygon">https://api.polygon.io</string>
 
-    <string-array name="date_selections">
+    <string-array name="date_ranges">
         <item>Week</item>
         <item>Month</item>
         <item>Year</item>
