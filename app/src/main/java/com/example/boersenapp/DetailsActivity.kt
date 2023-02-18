@@ -38,16 +38,17 @@ class DetailsActivity : AppCompatActivity() {
         }
         val date1 = LocalDate.parse("2023-02-06")
         val date2 = LocalDate.parse("2023-02-10")
+        val key_marketstack = resources.getString(R.string.key_marketstack)
         if (ItemsViewModel != null) {
-            getDataHistorical("5d98d031772f2a4eefec231a0eb1d75f", ItemsViewModel.ticker, date1, date2)
+            getDataHistorical(key_marketstack, ItemsViewModel.ticker, date1, date2)
         }
 
     }
 
     private fun getDataHistorical(key:String, symbol: String, date_from: LocalDate, date_to: LocalDate){
 
-        val url = "APPL/range/1/day/2023-02-06/2023-02-10"
-        val historicalAPI = RetrofitHelper.getInstance("http://api.marketstack.com").create(
+        val baseurl_marketstack = resources.getString(R.string.baseurl_marketstack)
+        val historicalAPI = RetrofitHelper.getInstance(baseurl_marketstack).create(
             HistoricalAPI::class.java)
         val call : Call<Historical> = historicalAPI.getHistorical(key,symbol,date_from,date_to)
         call.enqueue(object: Callback<Historical> {
@@ -56,7 +57,8 @@ class DetailsActivity : AppCompatActivity() {
                 call: Call<Historical?>,
                 response: Response<Historical?>
             ){
-
+                println("response")
+                println(response.body())
                 val entries = ArrayList<Entry>()
                 val lenght = response.body()?.data?.size!! -1
                 for(i in lenght downTo 0){
