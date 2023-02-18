@@ -33,7 +33,7 @@ class DetailsActivity : AppCompatActivity() {
         if(ItemsViewModel != null){
             val textView : TextView = findViewById(R.id.Aktienname)
             val exchange : TextView = findViewById(R.id.exchange)
-            textView.text = ItemsViewModel.ticker
+            textView.text = ItemsViewModel.name
         }
 
         val date1 = LocalDate.parse("2023-02-06")
