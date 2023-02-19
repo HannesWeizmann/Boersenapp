@@ -1,23 +1,36 @@
 package com.example.boersenapp
 
+import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.*
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.boersenapp.api.details.DetailsAPI
+import com.example.boersenapp.api.details.dataclass.Details
 import com.example.boersenapp.api.historical.HistoricalAPI
 import com.example.boersenapp.api.historical.dataclass.Historical
+import com.example.boersenapp.api.news.NewsAPI
+import com.example.boersenapp.api.news.dataclass.News
 import com.example.boersenapp.api.tickers.RetrofitHelper
+import com.example.boersenapp.api.tickers.dataclass.Tickers
 import com.example.boersenapp.ui.home.TickersItemsViewModel
+import com.example.boersenapp.ui.home.adapter
+import com.example.boersenapp.ui.home.data
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.net.URL
 import java.time.LocalDate
 import java.time.Period
 
@@ -38,7 +51,11 @@ class DetailsActivity : AppCompatActivity() {
             val textView : TextView = findViewById(R.id.Aktienname)
             val exchange : TextView = findViewById(R.id.exchange)
             textView.text = ItemsViewModel.name
+            getNews(ItemsViewModel.ticker, 2)
+            //getDetails(ItemsViewModel.ticker)
+
         }
+
 
         val today = LocalDate.now()
         val week = Period.of(0,0,7)
@@ -141,6 +158,54 @@ class DetailsActivity : AppCompatActivity() {
                 println("Error with Historical api")
             }
         })
+
+    }
+
+    fun getDetails(ticker:String){
+        val baseurl_details = resources.getString(R.string.baseurl_polygon)
+        val key_polygon  = resources.getString(R.string.key_polygon)
+        val detailsAPI = RetrofitHelper.getInstance(baseurl_details).create(
+        DetailsAPI::class.java)
+        val call: Call<Details> = detailsAPI.getDetails("MSFT",key_polygon)
+        call.enqueue(object : Callback<Details?> {
+
+            override fun onResponse(
+                call: Call<Details?>,
+                response: Response<Details?>
+            ) {
+                if (response.isSuccessful()) {
+                    println(response.body())
+                }
+            }
+            override fun onFailure(call: Call<Details?>, t: Throwable) {
+                println("Error with Details API")
+            }
+        }
+        )
+
+    }
+    fun getNews(ticker:String, limit: Int ){
+
+        val baseurl_details = resources.getString(R.string.baseurl_polygon)
+        val key_polygon  = resources.getString(R.string.key_polygon)
+        val newsAPI = RetrofitHelper.getInstance(baseurl_details).create(
+            NewsAPI::class.java)
+        val call: Call<News> = newsAPI.getNews(key_polygon,limit)
+        call.enqueue(object : Callback<News?> {
+
+            override fun onResponse(
+                call: Call<News?>,
+                response: Response<News?>
+            ) {
+                if (response.isSuccessful()) {
+                    println(response.body())
+                }
+            }
+            override fun onFailure(call: Call<News?>, t: Throwable) {
+                println("Error with Details API")
+            }
+        }
+        )
 
     }
 }

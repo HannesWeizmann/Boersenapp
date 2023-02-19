@@ -4,7 +4,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitHelper {
-    //val baseUrl = "https://api.polygon.io"
 
     fun getInstance(baseurl:String): Retrofit {
         return Retrofit.Builder().baseUrl(baseurl)
