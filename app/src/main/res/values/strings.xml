@@ -7,6 +7,7 @@
     <string name="key_polygon">tvrXanzn0M7kpFFyZLJKn4rTAG4rQJGv</string>
     <string name="baseurl_polygon">https://api.polygon.io</string>
 
+
     <string-array name="date_ranges">
         <item>Week</item>
         <item>Month</item>

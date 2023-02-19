@@ -13,7 +13,7 @@ import com.example.boersenapp.DetailsActivity
 import com.example.boersenapp.R
 import com.example.boersenapp.api.tickers.RetrofitHelper
 import com.example.boersenapp.api.tickers.TickersAPI
-import com.example.boersenapp.api.tickers.dataclass1.Tickers
+import com.example.boersenapp.api.tickers.dataclass.Tickers
 import com.example.boersenapp.databinding.FragmentHomeBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -35,8 +35,9 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val key_polygon = resources.getString(R.string.key_polygon)
-        getDataTickers(key_polygon, 100)
+        val key_marketstack = resources.getString(R.string.key_marketstack)
+        //val exchange = resources.getString(R.string.exchange)
+        getDataTickers(key_marketstack, 100)
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
@@ -49,9 +50,9 @@ class HomeFragment : Fragment() {
 
 
     private fun getDataTickers(key:String, limit: Int) {
-        val baseurl_polygon = resources.getString(R.string.baseurl_polygon)
-        val tickerapi = RetrofitHelper.getInstance(baseurl_polygon).create(TickersAPI::class.java)
-        val call: Call<Tickers> = tickerapi.getTickers(true, limit, key)
+        val baseurl_marketstack = resources.getString(R.string.baseurl_marketstack)
+        val tickerapi = RetrofitHelper.getInstance(baseurl_marketstack).create(TickersAPI::class.java)
+        val call: Call<Tickers> = tickerapi.getTickers(key, limit)
         call.enqueue(object : Callback<Tickers?> {
 
             override fun onResponse(
@@ -62,8 +63,8 @@ class HomeFragment : Fragment() {
                     val recyclerview: RecyclerView = binding.recyclerview
                     recyclerview.layoutManager = LinearLayoutManager(activity!!) as LayoutManager
                     for (i in 0 until limit) {
-                        val name = response.body()?.results?.get(i)?.name
-                        val ticker = response.body()?.results?.get(i)?.ticker
+                        val name = response.body()?.data?.get(i)?.name
+                        val ticker = response.body()?.data?.get(i)?.symbol
                         if(name != null && ticker != null){
                             val item = TickersItemsViewModel(ticker, name)
                             data.add(item)
