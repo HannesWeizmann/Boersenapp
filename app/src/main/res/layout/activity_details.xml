@@ -7,7 +7,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         tools:context=".DetailsActivity">
 
     <TextView
@@ -29,7 +29,9 @@
         android:ems="10"
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Aktienname" />
+        app:layout_constraintTop_toBottomOf="@+id/Aktienname"
+        android:autofillHints="100"
+        tools:ignore="LabelFor" />
 
     <TextView
         android:id="@+id/Beschreibung1"
@@ -38,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="92dp"
         android:layout_marginTop="72dp"
-        android:text="Preis"
+        android:text="@string/Preis"
         app:layout_constraintEnd_toStartOf="@+id/preis"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,7 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="76dp"
         android:layout_marginTop="36dp"
-        android:text="Dividende"
+        android:text="@string/Dividende"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Beschreibung1" />
 
@@ -61,7 +63,7 @@
         android:layout_height="32dp"
         android:layout_marginStart="116dp"
         android:layout_marginTop="24dp"
-        android:text="TextView"
+        android:text="@string/Textview"
         app:layout_constraintStart_toEndOf="@+id/Beschreibung2"
         app:layout_constraintTop_toBottomOf="@+id/preis" />
 
@@ -97,7 +99,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginBottom="20dp"
-        android:text="News"
+        android:text="@string/News"
         app:layout_constraintBottom_toTopOf="@+id/news"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -105,7 +107,7 @@
         android:id="@+id/news"
         android:layout_width="334dp"
         android:layout_height="158dp"
-        android:text="TextView"
+        android:text="@string/Textview"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

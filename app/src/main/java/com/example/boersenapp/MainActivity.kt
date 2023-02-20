@@ -1,7 +1,6 @@
 package com.example.boersenapp
 
 import android.content.Context
-import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
@@ -17,16 +16,10 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.recyclerview.widget.RecyclerView
-import com.example.boersenapp.api.tickers.RetrofitHelper
-import com.example.boersenapp.api.tickers.TickersAPI
 import com.example.boersenapp.databinding.ActivityMainBinding
-import com.example.boersenapp.ui.home.CustomAdapter
 import com.example.boersenapp.ui.home.TickersItemsViewModel
 import com.example.boersenapp.ui.home.adapter
 import com.example.boersenapp.ui.home.data
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -39,7 +32,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Drehung des Bildschirms
+        //Drehung des Bildschirms
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR
 
 
@@ -82,7 +75,7 @@ class MainActivity : AppCompatActivity() {
         val searchItem: MenuItem = menu.findItem(R.id.actionSearch)
 
         // getting search view of our item.
-        val searchView: SearchView = searchItem.getActionView() as SearchView
+        val searchView: SearchView = searchItem.actionView as SearchView
 
         // below line is to call set on query text listener method.
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,

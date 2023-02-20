@@ -1,14 +1,10 @@
 package com.example.boersenapp
 
-import android.content.Intent
 import android.content.pm.ActivityInfo
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.*
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.boersenapp.api.details.DetailsAPI
 import com.example.boersenapp.api.details.dataclass.Details
 import com.example.boersenapp.api.historical.HistoricalAPI
@@ -16,21 +12,15 @@ import com.example.boersenapp.api.historical.dataclass.Historical
 import com.example.boersenapp.api.news.NewsAPI
 import com.example.boersenapp.api.news.dataclass.News
 import com.example.boersenapp.api.tickers.RetrofitHelper
-import com.example.boersenapp.api.tickers.dataclass.Tickers
 import com.example.boersenapp.ui.home.TickersItemsViewModel
-import com.example.boersenapp.ui.home.adapter
-import com.example.boersenapp.ui.home.data
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
-import okhttp3.OkHttpClient
-import okhttp3.Request
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.net.URL
 import java.time.LocalDate
 import java.time.Period
 

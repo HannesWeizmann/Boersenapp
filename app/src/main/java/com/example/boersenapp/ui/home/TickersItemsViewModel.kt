@@ -5,8 +5,8 @@ import android.os.Parcelable
 
 data class TickersItemsViewModel(val ticker: String, val name: String) : Parcelable {
 
-    constructor(parcel: Parcel) : this(ticker = parcel.readString()!!, name = parcel.readString()!!) {
-    }
+    constructor(parcel: Parcel) : this(ticker = parcel.readString()!!, name = parcel.readString()!!)
+
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(ticker)
