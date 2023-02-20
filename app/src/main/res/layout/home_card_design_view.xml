@@ -19,7 +19,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="@string/Item"
+            android:layout_marginLeft="15dp"
+            android:text="Item"
             android:textSize="17sp"
             android:textStyle="bold" />
 

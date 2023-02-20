@@ -2,9 +2,11 @@ package com.example.boersenapp.api.historical
 
 import com.example.boersenapp.api.historical.dataclass.Historical
 import retrofit2.Call
+import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Query
 import java.time.LocalDate
+import java.util.*
 
 
 interface HistoricalAPI {

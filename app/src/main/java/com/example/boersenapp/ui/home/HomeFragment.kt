@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.example.boersenapp.DetailsActivity
 import com.example.boersenapp.R
 import com.example.boersenapp.api.tickers.RetrofitHelper
@@ -60,7 +61,7 @@ class HomeFragment : Fragment() {
             ) {
                 if (response.isSuccessful()) {
                     val recyclerview: RecyclerView = binding.recyclerview
-                    recyclerview.layoutManager = LinearLayoutManager(activity!!)
+                    recyclerview.layoutManager = LinearLayoutManager(activity!!) as LayoutManager
                     for (i in 0 until limit) {
                         val name = response.body()?.data?.get(i)?.name
                         val ticker = response.body()?.data?.get(i)?.symbol
