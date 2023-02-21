@@ -10,6 +10,7 @@
         android:layout_height="match_parent"
         tools:context=".DetailsActivity">
 
+
     <TextView
         android:id="@+id/Aktienname"
         style="@style/HeadlineText"
@@ -20,53 +21,53 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Aktie" />
 
-    <EditText
-        android:id="@+id/preis"
-        android:layout_width="116dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="56dp"
-        android:layout_marginEnd="60dp"
-        android:ems="10"
-        android:inputType="number"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Aktienname" />
 
-    <TextView
-        android:id="@+id/Beschreibung1"
-        style="@style/Beschreibungen"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="92dp"
-        android:layout_marginTop="72dp"
-        android:text="Preis"
-        app:layout_constraintEnd_toStartOf="@+id/preis"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Aktienname" />
+        <EditText
+            android:id="@+id/preis"
+            android:layout_width="68dp"
+            android:layout_height="49dp"
+            android:layout_marginTop="56dp"
+            android:layout_marginEnd="104dp"
+            android:ems="10"
+            android:inputType="number"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Aktienname" />
 
-    <TextView
-        android:id="@+id/Beschreibung2"
-        style="@style/Beschreibungen"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="76dp"
-        android:layout_marginTop="36dp"
-        android:text="Dividende"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Beschreibung1" />
+        <TextView
+            android:id="@+id/Beschreibung1"
+            style="@style/Beschreibungen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="72dp"
+            android:layout_marginEnd="128dp"
+            android:text="Preis"
+            app:layout_constraintEnd_toStartOf="@+id/preis"
+            app:layout_constraintHorizontal_bias="0.901"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Aktienname" />
 
-    <TextView
-        android:id="@+id/exchange"
-        android:layout_width="75dp"
-        android:layout_height="32dp"
-        android:layout_marginStart="116dp"
-        android:layout_marginTop="24dp"
-        android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/Beschreibung2"
-        app:layout_constraintTop_toBottomOf="@+id/preis" />
+        <TextView
+            android:id="@+id/Beschreibung2"
+            style="@style/Beschreibungen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="64dp"
+            android:layout_marginTop="40dp"
+            android:text="Exchange"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Beschreibung4" />
 
+        <TextView
+            android:id="@+id/exchange"
+            android:layout_width="75dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="104dp"
+            android:layout_marginTop="40dp"
+            android:text="TextView"
+            app:layout_constraintStart_toEndOf="@+id/Beschreibung2"
+            app:layout_constraintTop_toBottomOf="@+id/kürzel" />
 
-    <Spinner
+        <Spinner
         android:id="@+id/spinner"
         android:layout_width="119dp"
         android:layout_height="30dp"
@@ -87,8 +88,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.576"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Beschreibung2"
-        app:layout_constraintVertical_bias="0.542" />
+        app:layout_constraintTop_toBottomOf="@+id/Beschreibung2" />
 
     <TextView
         android:id="@+id/Beschreibung3"
@@ -110,6 +110,27 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+        <TextView
+            android:id="@+id/Beschreibung4"
+            style="@style/Beschreibungen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="64dp"
+            android:layout_marginTop="36dp"
+            android:text="Aktienkürzel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Beschreibung1" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/kürzel"
+            android:layout_width="65dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="104dp"
+            android:text="TextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/preis" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

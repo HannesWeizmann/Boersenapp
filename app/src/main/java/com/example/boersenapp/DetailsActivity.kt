@@ -49,8 +49,10 @@ class DetailsActivity : AppCompatActivity() {
         val key_marketstack = resources.getString(R.string.key_marketstack)
         if(ItemsViewModel != null){
             val textView : TextView = findViewById(R.id.Aktienname)
+            val kürzel : TextView = findViewById(R.id.kürzel)
             val exchange : TextView = findViewById(R.id.exchange)
             textView.text = ItemsViewModel.name
+            kürzel.text = ItemsViewModel.ticker
             getNews(ItemsViewModel.ticker, 2)
             //getDetails(ItemsViewModel.ticker)
 
@@ -128,13 +130,14 @@ class DetailsActivity : AppCompatActivity() {
                     preis.text = entries[length].y.toString()
 
                     val lineChart: LineChart = findViewById(R.id.lineChart)
-                    val primcolor: Int = resources.getColor(R.color.purple_500)
+                    val primcolor: Int = resources.getColor(R.color.green)
 
                     val vl = LineDataSet(entries, "Closing Values")
                     vl.setDrawValues(false)
                     vl.setDrawFilled(true)
                     vl.lineWidth = 3f
                     vl.fillColor = primcolor
+                    vl.fillAlpha = R.color.othergreen
                     lineChart.xAxis.labelRotationAngle = 0f
                     lineChart.data = LineData(vl)
                     lineChart.axisRight.isEnabled = false
