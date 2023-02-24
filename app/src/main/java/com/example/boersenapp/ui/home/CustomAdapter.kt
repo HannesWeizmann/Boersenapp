@@ -13,10 +13,9 @@ class CustomAdapter(private var mList: List<TickersItemsViewModel>) : RecyclerVi
 
     var onItemClick : ((TickersItemsViewModel) ->Unit)? = null
 
-    // create new views
+    // erstellt neue Views
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        // inflates the card_view_design view
-        // that is used to hold list item
+        //erstellt die card_view_design-Ansicht auf, die verwendet, um das Listenelement zu halten
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.home_card_design_view, parent, false)
 
@@ -24,14 +23,12 @@ class CustomAdapter(private var mList: List<TickersItemsViewModel>) : RecyclerVi
     }
 
 
-    // binds the list items to a view
+    // bindet die Listenelemente an eine view
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val ItemsViewModel = mList[position]
 
-        // sets the text to the textview from our itemHolder class
         holder.textView.text = ItemsViewModel.name
-
 
         holder.itemView.setOnClickListener{
             onItemClick?.invoke(ItemsViewModel)
@@ -39,25 +36,23 @@ class CustomAdapter(private var mList: List<TickersItemsViewModel>) : RecyclerVi
     }
 
 
-    // return the number of the items in the list
+    // gibt die Anzahl der Elemente in der Liste zurück
     override fun getItemCount(): Int {
         return mList.size
     }
 
-    // Holds the views for adding it to text
+    // Enthält die Ansichten zum Hinzufügen zu Text
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
 
         val textView: TextView = itemView.findViewById(R.id.textView)
 
     }
 
-    // method for filtering our recyclerview items.
+    // Methode zum Filtern unserer Recyclerview-items
     fun filterList(filterlist: List<TickersItemsViewModel>) {
-        // below line is to add our filtered
-        // list in our course array list.
+
         mList = filterlist
-        // below line is to notify our adapter
-        // as change in recycler view data.
+
         notifyDataSetChanged()
     }
 

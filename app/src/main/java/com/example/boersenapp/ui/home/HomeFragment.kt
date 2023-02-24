@@ -26,15 +26,10 @@ class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+
         val key_marketstack = resources.getString(R.string.key_marketstack)
         //val exchange = resources.getString(R.string.exchange)
         getDataTickers(key_marketstack, 100)
@@ -43,12 +38,13 @@ class HomeFragment : Fragment() {
 
         return binding.root
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
-
+    //holt die Aktien aus der API mit Angabe einer Anzahl wie viele es sein sollen
     private fun getDataTickers(key:String, limit: Int) {
         val baseurl_marketstack = resources.getString(R.string.baseurl_marketstack)
         val tickerapi = RetrofitHelper.getInstance(baseurl_marketstack).create(TickersAPI::class.java)
@@ -73,6 +69,7 @@ class HomeFragment : Fragment() {
 
                     recyclerview.adapter = adapter
 
+                    //übergibt den aktiennamen der Detailansicht
                     adapter.onItemClick = {
                         val intent = Intent(requireContext(), DetailsActivity::class.java)
                         intent.putExtra("Aktie", it)

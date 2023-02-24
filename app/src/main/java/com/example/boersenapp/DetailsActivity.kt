@@ -44,7 +44,7 @@ class DetailsActivity : AppCompatActivity() {
         // Drehung des Bildschirms
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR
 
-
+        //Übergabe der Aktieninfos an Detailansicht
         val ItemsViewModel = intent.getParcelableExtra<TickersItemsViewModel>("Aktie")
         val key_marketstack = resources.getString(R.string.key_marketstack)
         if(ItemsViewModel != null){
@@ -58,7 +58,7 @@ class DetailsActivity : AppCompatActivity() {
 
         }
 
-
+        //Variablen für den Aktienchart
         val today = LocalDate.now()
         val week = Period.of(0,0,7)
         val moth  = Period.of(0,1,0)
@@ -97,6 +97,7 @@ class DetailsActivity : AppCompatActivity() {
 
     }
 
+    //Funktion zum holen der historischen Daten zum erstellen des Aktiencharts
     private fun getDataHistorical(key:String, symbol: String, date_from: LocalDate, date_to: LocalDate){
 
         val baseurl_marketstack = resources.getString(R.string.baseurl_marketstack)
