@@ -19,7 +19,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-var data = ArrayList<TickersItemsViewModel>()
+val data = ArrayList<TickersItemsViewModel>()
 val adapter = CustomAdapter(data)
 
 class HomeFragment : Fragment() {
