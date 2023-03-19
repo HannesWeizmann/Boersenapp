@@ -11,23 +11,23 @@
         tools:context=".DetailsActivity">
 
 
-    <TextView
-        android:id="@+id/Aktienname"
-        style="@style/HeadlineText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Aktie" />
+        <TextView
+            android:id="@+id/Aktienname"
+            style="@style/HeadlineText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Aktie" />
 
 
         <EditText
             android:id="@+id/preis"
             android:layout_width="68dp"
             android:layout_height="49dp"
-            android:layout_marginTop="56dp"
-            android:layout_marginEnd="104dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="108dp"
             android:ems="10"
             android:inputType="number"
             app:layout_constraintEnd_toEndOf="parent"
@@ -38,7 +38,7 @@
             style="@style/Beschreibungen"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="72dp"
+            android:layout_marginTop="30dp"
             android:layout_marginEnd="128dp"
             android:text="Preis"
             app:layout_constraintEnd_toStartOf="@+id/preis"
@@ -52,7 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="64dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="20dp"
             android:text="Exchange"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Beschreibung4" />
@@ -61,54 +61,56 @@
             android:id="@+id/exchange"
             android:layout_width="75dp"
             android:layout_height="32dp"
-            android:layout_marginStart="104dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="16dp"
             android:text="TextView"
             app:layout_constraintStart_toEndOf="@+id/Beschreibung2"
             app:layout_constraintTop_toBottomOf="@+id/kürzel" />
 
         <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="119dp"
-        android:layout_height="30dp"
-        app:layout_constraintBottom_toTopOf="@+id/Beschreibung3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.839"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lineChart"
-        app:layout_constraintVertical_bias="0.0"
-        tools:ignore="MissingConstraints" />
+            android:id="@+id/spinner"
+            android:layout_width="119dp"
+            android:layout_height="30dp"
+            app:layout_constraintBottom_toTopOf="@+id/Beschreibung3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.839"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lineChart"
+            app:layout_constraintVertical_bias="0.0"
+            tools:ignore="MissingConstraints" />
 
-    <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/lineChart"
-        android:layout_width="300dp"
-        android:layout_height="200dp"
-        android:padding="9dp"
-        app:layout_constraintBottom_toTopOf="@+id/Beschreibung3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.576"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Beschreibung2" />
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/lineChart"
+            android:layout_width="300dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="100dp"
+            android:padding="9dp"
+            app:layout_constraintBottom_toTopOf="@+id/Beschreibung3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.576"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Beschreibung2" />
 
-    <TextView
-        android:id="@+id/Beschreibung3"
-        style="@style/Beschreibungen"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginBottom="20dp"
-        android:text="News"
-        app:layout_constraintBottom_toTopOf="@+id/news"
-        app:layout_constraintStart_toStartOf="parent" />
+        <TextView
+            android:id="@+id/Beschreibung3"
+            style="@style/Beschreibungen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:text="News"
+            app:layout_constraintBottom_toTopOf="@+id/news"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/news"
-        android:layout_width="334dp"
-        android:layout_height="158dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <TextView
+            android:id="@+id/news"
+            android:layout_width="334dp"
+            android:layout_height="158dp"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/Beschreibung4"
@@ -116,7 +118,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="64dp"
-            android:layout_marginTop="36dp"
+            android:layout_marginTop="26dp"
             android:text="Aktienkürzel"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Beschreibung1" />
@@ -125,11 +127,72 @@
             android:id="@+id/kürzel"
             android:layout_width="65dp"
             android:layout_height="24dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="104dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="108dp"
             android:text="TextView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/preis" />
+
+        <CheckBox
+            android:id="@+id/Kursalarm"
+            style="@style/Beschreibungen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="56dp"
+            android:layout_marginTop="10dp"
+            android:text="Kursalarm"
+            tools:layout_editor_absoluteX="64dp"
+            tools:layout_editor_absoluteY="191dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Beschreibung2"/>
+
+        <TextView
+            android:id="@+id/Beschreibung5"
+            style="@style/Beschreibungen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="64dp"
+            android:layout_marginTop="1dp"
+            android:text="Obergrenze:"
+            tools:layout_editor_absoluteX="69dp"
+            tools:layout_editor_absoluteY="247dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Kursalarm"/>
+
+        <TextView
+            android:id="@+id/Beschreibung6"
+            style="@style/Beschreibungen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="64dp"
+            android:layout_marginTop="5dp"
+            android:text="Untergrenze:"
+            tools:layout_editor_absoluteX="69dp"
+            tools:layout_editor_absoluteY="274dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Beschreibung5"/>
+
+        <EditText
+            android:id="@+id/editTextNumber2"
+            android:layout_width="68dp"
+            android:layout_height="49dp"
+            android:layout_marginStart="236dp"
+            android:layout_marginTop="30dp"
+            android:ems="10"
+            android:inputType="number"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/exchange" />
+
+        <EditText
+            android:id="@+id/editTextNumber3"
+            android:layout_width="68dp"
+            android:layout_height="49dp"
+            android:layout_marginStart="236dp"
+            android:layout_marginTop="62dp"
+            android:ems="10"
+            android:inputType="number"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/exchange" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
