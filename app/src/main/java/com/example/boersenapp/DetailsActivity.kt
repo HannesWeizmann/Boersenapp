@@ -1,14 +1,10 @@
 package com.example.boersenapp
 
-import android.content.Intent
 import android.content.pm.ActivityInfo
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.*
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.boersenapp.api.details.DetailsAPI
 import com.example.boersenapp.api.details.dataclass.Details
 import com.example.boersenapp.api.historical.HistoricalAPI
@@ -16,21 +12,15 @@ import com.example.boersenapp.api.historical.dataclass.Historical
 import com.example.boersenapp.api.news.NewsAPI
 import com.example.boersenapp.api.news.dataclass.News
 import com.example.boersenapp.api.tickers.RetrofitHelper
-import com.example.boersenapp.api.tickers.dataclass.Tickers
 import com.example.boersenapp.ui.home.TickersItemsViewModel
-import com.example.boersenapp.ui.home.adapter
-import com.example.boersenapp.ui.home.data
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
-import okhttp3.OkHttpClient
-import okhttp3.Request
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.net.URL
 import java.time.LocalDate
 import java.time.Period
 
@@ -67,34 +57,56 @@ class DetailsActivity : AppCompatActivity() {
 
         val date_ranges = resources.getStringArray(R.array.date_ranges)
         val spinner: Spinner  = findViewById(R.id.spinner)
-        if(spinner != null){
+        if(spinner != null) {
             val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, date_ranges)
             spinner.adapter = adapter
 
             spinner.onItemSelectedListener = object :
-                AdapterView.OnItemSelectedListener{
-                override fun onItemSelected(p0: AdapterView<*>?, parent: View?, position: Int, id: Long) {
+                AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    p0: AdapterView<*>?,
+                    parent: View?,
+                    position: Int,
+                    id: Long
+                ) {
                     println(date_ranges[position])
-                    if(position ==0){
-                        dayinpast  =today.minus(week)
-                    }
-                    else if (position == 1){
+                    if (position == 0) {
+                        dayinpast = today.minus(week)
+                    } else if (position == 1) {
                         dayinpast = today.minus(moth)
+                    } else {
+                        dayinpast = today.minus(year)
                     }
-                    else{
-                        dayinpast  = today.minus(year)
-                    }
-                    if(ItemsViewModel != null){
+                    if (ItemsViewModel != null) {
                         println(ItemsViewModel.ticker)
                         getDataHistorical(key_marketstack, ItemsViewModel.ticker, dayinpast, today)
                     }
                 }
+
                 override fun onNothingSelected(p0: AdapterView<*>?) {
                     TODO("Not yet implemented")
                 }
-                }
+            }
         }
 
+
+        //Funktion zum Enable/Disable der Ober- und Untergrenze Eingabe
+        val checkBox = findViewById<CheckBox>(R.id.Kursalarm)
+        val number1 = findViewById<EditText>(R.id.editTextNumber2)
+        val number2 = findViewById<EditText>(R.id.editTextNumber3)
+        val beschreibung5 = findViewById<TextView>(R.id.Beschreibung5)
+        val beschreibung6 = findViewById<TextView>(R.id.Beschreibung6)
+        val speichern = findViewById<Button>(R.id.Speichern)
+        val löschen = findViewById<Button>(R.id.Löschen)
+
+        checkBox.setOnCheckedChangeListener { _, isChecked ->
+            number1.isEnabled = isChecked
+            number2.isEnabled = isChecked
+            beschreibung5.isEnabled = isChecked
+            beschreibung6.isEnabled = isChecked
+            speichern.isEnabled = isChecked
+            löschen.isEnabled = isChecked
+        }
     }
 
     //Funktion zum holen der historischen Daten zum erstellen des Aktiencharts
@@ -212,4 +224,9 @@ class DetailsActivity : AppCompatActivity() {
         )
 
     }
+
+
+
+
+
 }
