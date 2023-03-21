@@ -1,8 +1,14 @@
 package com.example.boersenapp
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Intent
 import android.content.pm.ActivityInfo
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.*
 import com.example.boersenapp.api.details.DetailsAPI
@@ -23,9 +29,19 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.time.LocalDate
 import java.time.Period
+import android.widget.Button
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
+
 
 class DetailsActivity : AppCompatActivity() {
 
+    private companion object{
+        private const val CHANNEL_ID = "channel01"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,12 +53,13 @@ class DetailsActivity : AppCompatActivity() {
         //Übergabe der Aktieninfos an Detailansicht
         val ItemsViewModel = intent.getParcelableExtra<TickersItemsViewModel>("Aktie")
         val key_marketstack = resources.getString(R.string.key_marketstack)
-        if(ItemsViewModel != null){
-            val textView : TextView = findViewById(R.id.Aktienname)
-            val kürzel : TextView = findViewById(R.id.kürzel)
-            val exchange : TextView = findViewById(R.id.exchange)
+        if (ItemsViewModel != null) {
+            val textView: TextView = findViewById(R.id.Aktienname)
+            val kürzel: TextView = findViewById(R.id.kürzel)
+            val exchange: TextView = findViewById(R.id.exchange)
             textView.text = ItemsViewModel.name
             kürzel.text = ItemsViewModel.ticker
+            
             getNews(ItemsViewModel.ticker, 2)
             //getDetails(ItemsViewModel.ticker)
 
@@ -50,14 +67,14 @@ class DetailsActivity : AppCompatActivity() {
 
         //Variablen für den Aktienchart
         val today = LocalDate.now()
-        val week = Period.of(0,0,7)
-        val moth  = Period.of(0,1,0)
-        val year = Period.of(1,0,0)
-        var dayinpast  = today.minus(week)
+        val week = Period.of(0, 0, 7)
+        val moth = Period.of(0, 1, 0)
+        val year = Period.of(1, 0, 0)
+        var dayinpast = today.minus(week)
 
         val date_ranges = resources.getStringArray(R.array.date_ranges)
-        val spinner: Spinner  = findViewById(R.id.spinner)
-        if(spinner != null) {
+        val spinner: Spinner = findViewById(R.id.spinner)
+        if (spinner != null) {
             val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, date_ranges)
             spinner.adapter = adapter
 
@@ -97,7 +114,7 @@ class DetailsActivity : AppCompatActivity() {
         val beschreibung5 = findViewById<TextView>(R.id.Beschreibung5)
         val beschreibung6 = findViewById<TextView>(R.id.Beschreibung6)
         val speichern = findViewById<Button>(R.id.Speichern)
-        val löschen = findViewById<Button>(R.id.Löschen)
+        val loeschen = findViewById<Button>(R.id.Löschen)
 
         checkBox.setOnCheckedChangeListener { _, isChecked ->
             number1.isEnabled = isChecked
@@ -105,31 +122,44 @@ class DetailsActivity : AppCompatActivity() {
             beschreibung5.isEnabled = isChecked
             beschreibung6.isEnabled = isChecked
             speichern.isEnabled = isChecked
-            löschen.isEnabled = isChecked
+            loeschen.isEnabled = isChecked
+        }
+
+
+
+        var shownotificationbtn = findViewById<Button>(R.id.Speichern)
+        shownotificationbtn.setOnClickListener {
+
         }
     }
 
     //Funktion zum holen der historischen Daten zum erstellen des Aktiencharts
-    private fun getDataHistorical(key:String, symbol: String, date_from: LocalDate, date_to: LocalDate){
+    private fun getDataHistorical(
+        key: String,
+        symbol: String,
+        date_from: LocalDate,
+        date_to: LocalDate
+    ) {
 
         val baseurl_marketstack = resources.getString(R.string.baseurl_marketstack)
         val preis: TextView = findViewById(R.id.preis)
         val historicalAPI = RetrofitHelper.getInstance(baseurl_marketstack).create(
-            HistoricalAPI::class.java)
-        val call : Call<Historical> = historicalAPI.getHistorical(key,symbol,date_from,date_to)
-        call.enqueue(object: Callback<Historical> {
+            HistoricalAPI::class.java
+        )
+        val call: Call<Historical> = historicalAPI.getHistorical(key, symbol, date_from, date_to)
+        call.enqueue(object : Callback<Historical> {
 
-            override fun onResponse (
+            override fun onResponse(
                 call: Call<Historical?>,
                 response: Response<Historical?>
-            ){
+            ) {
                 println("response")
                 println(response.body())
                 val entries = ArrayList<Entry>()
-                val length = response.body()?.data?.size!! -1
+                val length = response.body()?.data?.size!! - 1
 
 
-                if(length >= 0) {
+                if (length >= 0) {
                     for (i in length downTo 0) {
                         val index = length - i
                         entries.add(
@@ -160,8 +190,7 @@ class DetailsActivity : AppCompatActivity() {
                     lineChart.setNoDataText("No Data")
                     lineChart.animateX(1800, Easing.EaseInExpo)
 
-                }
-                else{
+                } else {
                     preis.text = "No current Data"
                     Toast.makeText(this@DetailsActivity, "No current Data", 5)
 
@@ -177,12 +206,13 @@ class DetailsActivity : AppCompatActivity() {
 
     }
 
-    fun getDetails(ticker:String){
+    fun getDetails(ticker: String) {
         val baseurl_details = resources.getString(R.string.baseurl_polygon)
-        val key_polygon  = resources.getString(R.string.key_polygon)
+        val key_polygon = resources.getString(R.string.key_polygon)
         val detailsAPI = RetrofitHelper.getInstance(baseurl_details).create(
-        DetailsAPI::class.java)
-        val call: Call<Details> = detailsAPI.getDetails("MSFT",key_polygon)
+            DetailsAPI::class.java
+        )
+        val call: Call<Details> = detailsAPI.getDetails("MSFT", key_polygon)
         call.enqueue(object : Callback<Details?> {
 
             override fun onResponse(
@@ -193,6 +223,7 @@ class DetailsActivity : AppCompatActivity() {
                     println(response.body())
                 }
             }
+
             override fun onFailure(call: Call<Details?>, t: Throwable) {
                 println("Error with Details API")
             }
@@ -200,13 +231,15 @@ class DetailsActivity : AppCompatActivity() {
         )
 
     }
-    fun getNews(ticker:String, limit: Int ){
+
+    fun getNews(ticker: String, limit: Int) {
 
         val baseurl_details = resources.getString(R.string.baseurl_polygon)
-        val key_polygon  = resources.getString(R.string.key_polygon)
+        val key_polygon = resources.getString(R.string.key_polygon)
         val newsAPI = RetrofitHelper.getInstance(baseurl_details).create(
-            NewsAPI::class.java)
-        val call: Call<News> = newsAPI.getNews(key_polygon,limit)
+            NewsAPI::class.java
+        )
+        val call: Call<News> = newsAPI.getNews(key_polygon, limit)
         call.enqueue(object : Callback<News?> {
 
             override fun onResponse(
@@ -217,6 +250,7 @@ class DetailsActivity : AppCompatActivity() {
                     println(response.body())
                 }
             }
+
             override fun onFailure(call: Call<News?>, t: Throwable) {
                 println("Error with Details API")
             }
@@ -226,7 +260,41 @@ class DetailsActivity : AppCompatActivity() {
     }
 
 
+    //Funktion um eine Benachrichtigung für den Kursalarm zu erstellen
+    fun shownotification() {
+        createnotificationchannel()
 
+        val date = Date()
+        val notificationid = SimpleDateFormat("ddHHmmss", Locale.GERMAN).format(date).toInt()
 
+        val mainIntent = Intent(this, DetailsActivity::class.java)
+        mainIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        val mainPendingIntent = PendingIntent.getActivity(this, 1 ,mainIntent, PendingIntent.FLAG_IMMUTABLE)
 
+        val notificationBuilder = NotificationCompat.Builder(this, "$CHANNEL_ID")
+        notificationBuilder.setContentTitle("Alaaaaarm")
+        notificationBuilder.setContentText("Eine Aktie hat einen Wert überschritten!")
+        notificationBuilder.setSmallIcon(R.drawable.ic_stat_name)
+        notificationBuilder.priority = NotificationCompat.PRIORITY_MAX
+        notificationBuilder.setAutoCancel(true)
+        notificationBuilder.setContentIntent(mainPendingIntent)
+
+        val notificationManagerCompat = NotificationManagerCompat.from(this)
+        notificationManagerCompat.notify(notificationid, notificationBuilder.build())
+
+    }
+
+    private fun createnotificationchannel(){
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            val name: CharSequence = "MyNotification"
+            val description = "My notification channel description"
+
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val notificationChannel = NotificationChannel("$CHANNEL_ID", name, importance)
+            notificationChannel.description = description
+            val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(notificationChannel)
+        }
+    }
 }
