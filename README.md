@@ -16,3 +16,10 @@ Philipp Cao:
 - Funktionen zum holen der Daten
 - RecyclerView
 - Neues Feature: Stockchart
+
+Nico Schaber:
+- News Section
+- Favoriten-Funktion
+
+Levin Kett:
+- Kursalarm
