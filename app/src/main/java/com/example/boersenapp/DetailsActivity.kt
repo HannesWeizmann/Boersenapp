@@ -9,6 +9,7 @@ import android.content.pm.ActivityInfo
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.View
 import android.widget.*
@@ -33,7 +34,6 @@ import java.time.Period
 import android.widget.Button
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import org.w3c.dom.Text
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -44,6 +44,7 @@ class DetailsActivity : AppCompatActivity() {
     private companion object{
         private const val CHANNEL_ID = "channel01"
     }
+    private val stockNames = mutableListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,6 +61,7 @@ class DetailsActivity : AppCompatActivity() {
         val speichern = findViewById<Button>(R.id.Speichern)
         val loeschen = findViewById<Button>(R.id.Löschen)
 
+
         //Übergabe der Aktieninfos an Detailansicht
         val ItemsViewModel = intent.getParcelableExtra<TickersItemsViewModel>("Aktie")
         val key_marketstack = resources.getString(R.string.key_marketstack)
@@ -70,6 +72,8 @@ class DetailsActivity : AppCompatActivity() {
             val exchange: TextView = findViewById(R.id.exchange)
             textView.text = ItemsViewModel.name
             kürzel.text = ItemsViewModel.ticker
+
+            //Die gespeicherten Werte des Aktienalarms eintragen
             val sharedPref = getPreferences(Context.MODE_PRIVATE)
             val stockName = textView.text.toString()
             val alarm_enabled_key = "alarm_enabled_$stockName"
@@ -81,7 +85,6 @@ class DetailsActivity : AppCompatActivity() {
             val LowerLimit = sharedPref.getInt(lower_limit_key, 0)
             number1.setText(UpperLimit.toString())
             number2.setText(LowerLimit.toString())
-
 
             checkBox.isChecked = is_alarm_enabled
 
@@ -141,6 +144,7 @@ class DetailsActivity : AppCompatActivity() {
             loeschen.isEnabled = true
         }
 
+        //Funktion für die CheckBox des Kursalarms
         checkBox.setOnCheckedChangeListener { _, isChecked ->
             number1.isEnabled = isChecked
             number2.isEnabled = isChecked
@@ -148,17 +152,35 @@ class DetailsActivity : AppCompatActivity() {
             beschreibung6.isEnabled = isChecked
             speichern.isEnabled = isChecked
             loeschen.isEnabled = isChecked
+
+            if(!isChecked) {
+                val stockName = findViewById<TextView>(R.id.Aktienname).text.toString()
+                deletedata(stockName)
+            }
         }
 
-        var shownotificationbtn = findViewById<Button>(R.id.Speichern)
-        shownotificationbtn.setOnClickListener {
+        //Handler (Loop) um Kursalarm alle 10min zu überprüfen
+        val handler = Handler()
+        val delay = 10 * 60 * 1000  //Alle 10 Minuten
+
+        handler.postDelayed(object : Runnable {
+            override fun run() {
+                compareData(25)
+                handler.postDelayed(this, delay.toLong())
+            }
+        }, delay.toLong())
+
+        //Funktionen für Speichern und Löschen Button
+        var savebutton = findViewById<Button>(R.id.Speichern)
+        savebutton.setOnClickListener {
             savedata()
-            test()
         }
-        var shownotificationbtn2 = findViewById<Button>(R.id.Löschen)
-        shownotificationbtn2.setOnClickListener {
-            deletedata()
+        var deletebutton = findViewById<Button>(R.id.Löschen)
+        deletebutton.setOnClickListener {
+            val stockName = findViewById<TextView>(R.id.Aktienname).text.toString()
+            deletedata(stockName)
         }
+
     }
 
     //Funktion zum holen der historischen Daten zum erstellen des Aktiencharts
@@ -299,8 +321,8 @@ class DetailsActivity : AppCompatActivity() {
         val mainPendingIntent = PendingIntent.getActivity(this, 1 ,mainIntent, PendingIntent.FLAG_IMMUTABLE)
 
         val notificationBuilder = NotificationCompat.Builder(this, "$CHANNEL_ID")
-        notificationBuilder.setContentTitle("Alaaaaarm")
-        notificationBuilder.setContentText("Eine Aktie hat einen Wert überschritten!")
+        notificationBuilder.setContentTitle("Kursalarm!")
+        notificationBuilder.setContentText("Eine Aktie hat einen von Ihnen definierten Wert überschritten!")
         notificationBuilder.setSmallIcon(R.drawable.ic_stat_name)
         notificationBuilder.priority = NotificationCompat.PRIORITY_MAX
         notificationBuilder.setAutoCancel(true)
@@ -324,56 +346,67 @@ class DetailsActivity : AppCompatActivity() {
         }
     }
 
-    fun test(){
-        val sharedPref = getPreferences(Context.MODE_PRIVATE)
-        val aktienname = findViewById<TextView>(R.id.Aktienname)
-        val stockName = aktienname.text.toString()
-        val upper_limit_key = "limit_upper_$stockName"
-        val lower_limit_key = "limit_lower_$stockName"
-        val UpperLimit = sharedPref.getInt(upper_limit_key, 0)
-        val LowerLimit = sharedPref.getInt(lower_limit_key, 0)
-        val alarm_enabled_key = "alarm_enabled_$stockName"
-        val is_alarm_enabled = sharedPref.getBoolean(alarm_enabled_key, false)
-        val Test = UpperLimit.toString() + "," + LowerLimit.toString() + "," + is_alarm_enabled + "," + stockName
 
-
-        Log.d("MyApp", Test)
-    }
     //Funktionen zum Speichern und Löschen der angegebenen Grenzwerte
     fun savedata(){
-
         val sharedPref = getPreferences(Context.MODE_PRIVATE)
         val editor = sharedPref.edit()
-        val obergrenze = findViewById<EditText>(R.id.editTextNumber2)
-        val untergrenze = findViewById<EditText>(R.id.editTextNumber3)
+        val obergrenze = findViewById<EditText>(R.id.editTextNumber2).text.toString().toIntOrNull()?:0
+        val untergrenze = findViewById<EditText>(R.id.editTextNumber3).text.toString().toIntOrNull()?:0
         val aktienname = findViewById<TextView>(R.id.Aktienname)
-        val obergrenzevalue = obergrenze.text.toString().toIntOrNull()?:0
-        val untergrenzevalue = untergrenze.text.toString().toIntOrNull()?:0
         val stockName = aktienname.text.toString()
+        val checkbox = findViewById<CheckBox>(R.id.Kursalarm)
         val upper_limit_key = "limit_upper_$stockName"
         val lower_limit_key = "limit_lower_$stockName"
-        val checkbox = findViewById<CheckBox>(R.id.Kursalarm)
         val alarm_enabled_key = "alarm_enabled_$stockName"
 
         editor.putBoolean(alarm_enabled_key, checkbox.isChecked)
-        editor.putInt(upper_limit_key, obergrenzevalue)
-        editor.putInt(lower_limit_key, untergrenzevalue)
+        editor.putInt(upper_limit_key, obergrenze)
+        editor.putInt(lower_limit_key, untergrenze)
         editor.apply()
+
+        stockNames.add(stockName)
     }
 
-    fun deletedata(){
+    fun deletedata(stockName: String) {
         val sharedPref = getPreferences(Context.MODE_PRIVATE)
         val editor = sharedPref.edit()
-        val aktienname = findViewById<TextView>(R.id.textView)
-        val stockName = aktienname.text.toString()
-        val upper_limit_key = "limit_upper_$stockName"
-        val lower_limit_key = "limit_lower_$stockName"
+        val upperLimitKey = "limit_upper_$stockName"
+        val lowerLimitKey = "limit_lower_$stockName"
+        val alarmEnabledKey = "alarm_enabled_$stockName"
 
-        editor.remove(upper_limit_key)
-        editor.remove(lower_limit_key)
+        editor.remove(upperLimitKey)
+        editor.remove(lowerLimitKey)
+        editor.remove(alarmEnabledKey)
         editor.apply()
+
+        stockNames.remove(stockName)
+
         findViewById<EditText>(R.id.editTextNumber2).setText("0")
         findViewById<EditText>(R.id.editTextNumber3).setText("0")
     }
 
+    //Funktion zum Vergleichen des aktuellen Wertes und den gesetzten Grenzen
+    fun compareData(value: Int) {
+        for (stockName in stockNames) {
+            val sharedPref = getPreferences(Context.MODE_PRIVATE)
+            val upperLimitKey = "limit_upper_$stockName"
+            val lowerLimitKey = "limit_lower_$stockName"
+            val alarmEnabledKey = "alarm_enabled_$stockName"
+            val upperLimit = sharedPref.getInt(upperLimitKey, 0)
+            val lowerLimit = sharedPref.getInt(lowerLimitKey, 0)
+            val alarmEnabled = sharedPref.getBoolean(alarmEnabledKey, false)
+
+            if (value >= upperLimit && alarmEnabled) {
+                shownotification()
+                Log.d("MyApp", "Hallo++ for $stockName")
+            } else if (value <= lowerLimit && alarmEnabled) {
+                shownotification()
+                Log.d("MyApp", "Test-- for $stockName")
+            }
+        }
+    }
+
 }
+
+

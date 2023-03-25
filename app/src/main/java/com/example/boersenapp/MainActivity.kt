@@ -7,8 +7,11 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.widget.SearchView
 import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -18,6 +21,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.example.boersenapp.api.details.dataclass.Details
 import com.example.boersenapp.api.tickers.RetrofitHelper
 import com.example.boersenapp.api.tickers.TickersAPI
 import com.example.boersenapp.databinding.ActivityMainBinding
@@ -29,12 +33,13 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.util.*
 import kotlin.collections.ArrayList
+import com.example.boersenapp.DetailsActivity
+
 
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

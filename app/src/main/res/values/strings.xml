@@ -2,7 +2,7 @@
     <string name="app_name">Boersenapp</string>
     <string name="title_home">Home</string>
     <string name="title_favoriten">Favoriten</string>
-    <string name="key_marketstack">8e8c542133da64cfe48214d662cf5580</string>
+    <string name="key_marketstack">3d68ff84c0272408e7df35b74eab3765</string>
     <string name="baseurl_marketstack">http://api.marketstack.com</string>
     <string name="key_polygon">DzqCMYt2prdc2sZU07OP26eD0aPGXXCo</string>
     <string name="baseurl_polygon">https://api.polygon.io</string>
