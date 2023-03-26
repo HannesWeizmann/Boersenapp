@@ -165,7 +165,7 @@ class DetailsActivity : AppCompatActivity() {
 
         handler.postDelayed(object : Runnable {
             override fun run() {
-                compareData(25)
+                compareData(120)
                 handler.postDelayed(this, delay.toLong())
             }
         }, delay.toLong())
