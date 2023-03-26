@@ -23,3 +23,6 @@ Nico Schaber:
 
 Levin Kett:
 - Kursalarm
+--> Known Issues:
+    - Emulator lässt in den Einstellungen des Handys die Benachrichtigungen für die App nicht zu 
+    - Aktueller Wert einer Aktie kann nicht als Vergleichswert hergeholt werden
