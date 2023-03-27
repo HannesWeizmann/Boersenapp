@@ -282,6 +282,7 @@ class DetailsActivity : AppCompatActivity() {
 
     }
 
+
     fun getNews(ticker: String, limit: Int) {
 
         val baseurl_details = resources.getString(R.string.baseurl_polygon)
@@ -297,7 +298,19 @@ class DetailsActivity : AppCompatActivity() {
                 response: Response<News?>
             ) {
                 if (response.isSuccessful()) {
-                    println(response.body())
+                    val newsList = response.body()?.results
+                    if (newsList != null && newsList.isNotEmpty()) {
+                        // Extrahiere den ersten Artikel aus der Liste.
+                        val article = newsList[0]
+                        val title = article.title
+                        val description = article.description
+
+                        // Gib den Titel und die Beschreibung in separate Textfelder aus.
+                        runOnUiThread {
+                            findViewById<TextView>(R.id.titleTextView).text = title
+                            findViewById<TextView>(R.id.descriptionTextView).text = description
+                        }
+                    }
                 }
             }
 
