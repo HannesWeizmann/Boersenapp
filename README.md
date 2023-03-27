@@ -18,8 +18,11 @@ Philipp Cao:
 - Neues Feature: Stockchart
 
 Nico Schaber:
-- News Section
-- Favoriten-Funktion
+- Aktien-News per API
+--> Known Issues: 
+   - Aktuell werden bei jeder Aktie lediglich die neueste News weltweit und ohne Suchbegriff angezeigt. Die News sind nicht mit Aktien verknüpft, können aber mit Stichwörtern gefiltert werden.
+     Ansatz bisher: Den aktuellen Aktiennamen als Suchbegriff/"Ticker" im API Call gleich mitgeben. Beispiel Microsoft: https://api.polygon.io/v2/reference/news?ticker=Microsoft
+
 
 Levin Kett:
 - Kursalarm
